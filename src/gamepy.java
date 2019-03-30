@@ -25,20 +25,30 @@ class gamepy extends JPanel implements KeyListener, ActionListener
 	private ImageIcon upimage;
 	private ImageIcon downimage;
 	private ImageIcon leftimage;
-	
+	private int move =0;
 	private ImageIcon topimage;
 
 	 public gamepy()
 	 {
 		 addKeyListener(this);
 		 setFocusable(true);
-		 setFocusTraversalKeyEnabled(false);
-		 timer = new Timer(delay, this)
-		 timmer.start();
+		 setFocusTraversalKeysEnabled(false);
+		 timer = new Timer(delay, this);
+		timer.start();
 	 }
 	 
 	 public void paint(Graphics g)
 	 {
+		 if (move == 0)
+		 {
+			 snakexlength[2] = 50;
+			 snakexlength[1] = 75;
+			 snakexlength[0] = 100;
+			 
+			 snakeylength[2] = 100;
+			 snakeylength[1] = 100;
+			 snakeylength[0] = 100;
+ 		}
 	 	g.setColor(Color.white);
 	 	g.drawRect(24, 10, 851, 55);
 	 	
@@ -48,6 +58,38 @@ class gamepy extends JPanel implements KeyListener, ActionListener
 	 	g.setColor(Color.black);
 	 	g.fillRect(25, 75,850,575);
 	 	
+	 	rightimage = new ImageIcon("snakeimage.jpg");
+	 	rightimage.paintIcon(this, g, snakexlength[0], snakeylength[0]);
+	 	
+	 	for(int a = 0;a < snakelength ; a++)
+	 	{
+	 		if(a==0 && right)
+	 		{
+	 			rightimage = new ImageIcon("snakeimage.jpg");
+	 		 	rightimage.paintIcon(this, g, snakexlength[a], snakeylength[a]);
+	 		}
+	 		if(a==0 && left)
+	 		{
+	 			leftimage = new ImageIcon("snakeimage.jpg");
+	 		 	rightimage.paintIcon(this, g, snakexlength[a], snakeylength[a]);
+	 		}
+	 		if(a==0 && right)
+	 		{
+	 			upimage = new ImageIcon("snakeimage.jpg");
+	 		 	rightimage.paintIcon(this, g, snakexlength[a], snakeylength[a]);
+	 		}
+	 		if(a==0 && right)
+	 		{
+	 			downimage = new ImageIcon("snakeimage.jpg");
+	 		 	rightimage.paintIcon(this, g, snakexlength[a], snakeylength[a]);
+	 		}
+	 		if (a!= 0)
+	 		{
+		 			rightimage = new ImageIcon("snakeimage.jpg");
+		 		 	rightimage.paintIcon(this, g, snakexlength[a], snakeylength[a]);
+	 		}
+	 		
+	 	}
 	 	
 	 	g.dispose();
 	 }
@@ -59,8 +101,73 @@ class gamepy extends JPanel implements KeyListener, ActionListener
 	}
 
 	@Override
-	public void keyPressed(KeyEvent arg0) {
-		// TODO Auto-generated method stub
+	public void keyPressed(KeyEvent e) {
+		if(e.getKeyCode() == KeyEvent.VK_RIGHT)
+		{
+			move++;
+			right = true;
+			if(!left)
+			{
+				right = true;
+			}
+			else
+			{
+				right = false;
+				left = true;
+			}
+			up = false;
+			down = false;
+		}
+		
+		if(e.getKeyCode() == KeyEvent.VK_LEFT)
+		{
+			move++;
+			left = true;
+			if(!right)
+			{
+				left = true;
+			}
+			else
+			{
+				left = false;
+				right = true;
+			}
+			up = false;
+			down = false;
+		}
+		if(e.getKeyCode() == KeyEvent.VK_UP)
+		{
+			move++;
+			up = true;
+			if(!down)
+			{
+				up = true;
+			}
+			else
+			{
+				up = false;
+				down = true;
+			}
+			right = false;
+			left = false;
+		}
+		if(e.getKeyCode() == KeyEvent.VK_DOWN)
+		{
+			move++;
+			down = true;
+			if(!up)
+			{
+				down = true;
+			}
+			else
+			{
+				down = false;
+				up = true;
+			}
+			right = false;
+			left = false;
+		}
+		
 		
 	}
 
