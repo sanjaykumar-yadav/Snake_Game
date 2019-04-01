@@ -96,9 +96,101 @@ class gamepy extends JPanel implements KeyListener, ActionListener
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
+		timer.start();
+		if(right)
+		{
+			for(int b = snakelength-1;b>=0;b--)
+			{
+				snakeylength[b+1] = snakeylength[b] ;
+			}
+			for(int b =snakelength;b>=0;b--)
+			{
+				if(b==0)
+				{
+					snakexlength[b] = snakexlength[b] + 25;
+				}
+				else
+				{
+					snakexlength[b] = snakexlength[b-1];
+				}
+				if(snakexlength[b] > 850)
+				{
+					snakexlength[b] = 25;
+				}
+			}
+			repaint();
+			
+		}
+		if(left)
+		{
+			for(int b = snakelength-1;b>=0;b--)
+			{
+				snakeylength[b+1] = snakeylength[b] ;
+			}
+			for(int b =snakelength;b>=0;b--)
+			{
+				if(b==0)
+				{
+					snakexlength[b] = snakexlength[b] - 25;
+				}
+				else
+				{
+					snakexlength[b] = snakexlength[b-1];
+				}
+				if(snakexlength[b] < 25)
+				{
+					snakexlength[b] = 850;
+				}
+			}
+			repaint();
+		}
+		if(up)
+		{
+			for(int b = snakelength-1;b>=0;b--)
+			{
+				snakexlength[b+1] = snakexlength[b] ;
+			}
+			for(int b =snakelength;b>=0;b--)
+			{
+				if(b==0)
+				{
+					snakeylength[b] = snakeylength[b] - 25;
+				}
+				else
+				{
+					snakeylength[b] = snakeylength[b-1];
+				}
+				if(snakeylength[b] < 75)
+				{
+					snakeylength[b] = 625;
+				}
+			}
+			repaint();	
+		}
+		if(down)
+		{
+			for(int b = snakelength-1;b>=0;b--)
+			{
+				snakexlength[b+1] = snakexlength[b] ;
+			}
+			for(int b =snakelength;b>=0;b--)
+			{
+				if(b==0)
+				{
+					snakeylength[b] = snakeylength[b] + 25;
+				}
+				else
+				{
+					snakeylength[b] = snakeylength[b-1];
+				}
+				if(snakeylength[b] > 625)
+				{
+					snakeylength[b] = 75 ;
+				}
+			}
+			repaint();	
+		}
+		}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
