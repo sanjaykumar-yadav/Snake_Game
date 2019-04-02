@@ -3,6 +3,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.Random;
 
 import javax.swing.*;
 class gamepy extends JPanel implements KeyListener, ActionListener
@@ -18,13 +19,21 @@ class gamepy extends JPanel implements KeyListener, ActionListener
 	private boolean up = false;
 	private boolean down = false;
 	
+	private int [] enemyxpos = {25,75,100,125,150,175,200,225,250,275,300,325,350,375,400,425,450,475,500,525,550,575,600,625,650,675,700,725,750};
+	private int [] enemyypos = {75,100,125,150,175,200,225,250,275,300,325,350,375,400,425,450,475,500,525};
+	
+	private Random random = new Random();
+	private int xpos = random.nextInt(29);
+	private int ypos = random.nextInt(19);
+	
 	private Timer timer ;
 	private int delay = 100;
-	
+	private ImageIcon enemy;
 	private ImageIcon rightimage;
 	private ImageIcon upimage;
 	private ImageIcon downimage;
 	private ImageIcon leftimage;
+	private ImageIcon snakeimage;
 	private int move =0;
 	private ImageIcon topimage;
 
@@ -52,44 +61,54 @@ class gamepy extends JPanel implements KeyListener, ActionListener
 	 	g.setColor(Color.white);
 	 	g.drawRect(24, 10, 851, 55);
 	 	
-	 	//topimage = new ImageIcon("index.jpeg");
-	 	//topimage.paintIcon(this , g, 25, 11);
+	 	topimage = new ImageIcon("snaketitle.jpg");
+	 	topimage.paintIcon(this , g, 24, 11);
 	 	
 	 	g.setColor(Color.black);
 	 	g.fillRect(25, 75,850,575);
 	 	
-	 	rightimage = new ImageIcon("snakeimage.jpg");
+	 	rightimage = new ImageIcon("rightimage.jpg");
 	 	rightimage.paintIcon(this, g, snakexlength[0], snakeylength[0]);
 	 	
 	 	for(int a = 0;a < snakelength ; a++)
 	 	{
 	 		if(a==0 && right)
 	 		{
-	 			rightimage = new ImageIcon("snakeimage.jpg");
+	 			rightimage = new ImageIcon("rightimage.jpg");
 	 		 	rightimage.paintIcon(this, g, snakexlength[a], snakeylength[a]);
 	 		}
 	 		if(a==0 && left)
 	 		{
-	 			leftimage = new ImageIcon("snakeimage.jpg");
-	 		 	rightimage.paintIcon(this, g, snakexlength[a], snakeylength[a]);
+	 			leftimage = new ImageIcon("leftimage.jpg");
+	 		 	leftimage.paintIcon(this, g, snakexlength[a], snakeylength[a]);
 	 		}
-	 		if(a==0 && right)
+	 		if(a==0 && up)
 	 		{
-	 			upimage = new ImageIcon("snakeimage.jpg");
-	 		 	rightimage.paintIcon(this, g, snakexlength[a], snakeylength[a]);
+	 			upimage = new ImageIcon("upimage.jpg");
+	 		 	upimage.paintIcon(this, g, snakexlength[a], snakeylength[a]);
 	 		}
-	 		if(a==0 && right)
+	 		if(a==0 && down)
 	 		{
-	 			downimage = new ImageIcon("snakeimage.jpg");
-	 		 	rightimage.paintIcon(this, g, snakexlength[a], snakeylength[a]);
+	 			downimage = new ImageIcon("downimage.jpg");
+	 		 	downimage.paintIcon(this, g, snakexlength[a], snakeylength[a]);
 	 		}
 	 		if (a!= 0)
 	 		{
-		 			rightimage = new ImageIcon("snakeimage.jpg");
-		 		 	rightimage.paintIcon(this, g, snakexlength[a], snakeylength[a]);
+		 			snakeimage = new ImageIcon("snakeimage.jpg");
+		 		 	snakeimage.paintIcon(this, g, snakexlength[a], snakeylength[a]);
 	 		}
 	 		
 	 	}
+	 	enemy = new ImageIcon("enemy.jpg");
+	 	
+	 	if(enemyxpos[xpos] == snakexlength[0]  &&  enemyypos[ypos] == snakeylength[0])
+	 	{
+	 		snakelength++;
+	 		xpos = random.nextInt(29);
+	 		ypos = random.nextInt(19);
+	 	}
+	 	enemy.paintIcon(this, g, enemyxpos[xpos], enemyypos[ypos]);
+		
 	 	
 	 	g.dispose();
 	 }
