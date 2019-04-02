@@ -19,6 +19,8 @@ class gamepy extends JPanel implements KeyListener, ActionListener
 	private boolean up = false;
 	private boolean down = false;
 	
+	private int score = 0;
+	
 	private int [] enemyxpos = {25,75,100,125,150,175,200,225,250,275,300,325,350,375,400,425,450,475,500,525,550,575,600,625,650,675,700,725,750};
 	private int [] enemyypos = {75,100,125,150,175,200,225,250,275,300,325,350,375,400,425,450,475,500,525};
 	
@@ -67,6 +69,14 @@ class gamepy extends JPanel implements KeyListener, ActionListener
 	 	g.setColor(Color.black);
 	 	g.fillRect(25, 75,850,575);
 	 	
+	 	g.setColor(Color.white);
+	 	g.setFont(new Font("arial", Font.PLAIN ,14));
+	 	g.drawString("Score : "+score, 780, 30);
+	 	
+	 	g.setColor(Color.white);
+	 	g.setFont(new Font("arial", Font.PLAIN ,14));
+	 	g.drawString("Length : "+snakelength, 780, 50);
+	 	
 	 	rightimage = new ImageIcon("rightimage.jpg");
 	 	rightimage.paintIcon(this, g, snakexlength[0], snakeylength[0]);
 	 	
@@ -102,14 +112,32 @@ class gamepy extends JPanel implements KeyListener, ActionListener
 	 	enemy = new ImageIcon("enemy.jpg");
 	 	
 	 	if(enemyxpos[xpos] == snakexlength[0]  &&  enemyypos[ypos] == snakeylength[0])
-	 	{
+	 	{	
+	 		score++;
 	 		snakelength++;
 	 		xpos = random.nextInt(29);
 	 		ypos = random.nextInt(19);
 	 	}
 	 	enemy.paintIcon(this, g, enemyxpos[xpos], enemyypos[ypos]);
 		
-	 	
+	 	for(int b =1 ; b<snakelength;b++)
+	 	{
+	 		if(snakexlength[b] == snakexlength[0] && snakeylength[b] == snakeylength[0])
+	 		{
+	 			right = false;
+	 			left = false;
+	 			up = false;
+	 			down = false;
+	 			
+	 			g.setColor(Color.white);
+	 			g.setFont(new Font("arial",Font.BOLD,50));
+	 			g.drawString("GAME OVER !!", 300, 300);
+	 			g.setFont(new Font("arial",Font.BOLD,20));
+	 			g.drawString("Press Space Restart", 350, 340);
+	 			repaint();
+	 			
+	 		}
+	 	}
 	 	g.dispose();
 	 }
 
@@ -213,6 +241,12 @@ class gamepy extends JPanel implements KeyListener, ActionListener
 
 	@Override
 	public void keyPressed(KeyEvent e) {
+		if(e.getKeyCode() == KeyEvent.VK_SPACE)
+		{
+			move = 0;
+			score = 0;
+			snakelength = 3;
+		}
 		if(e.getKeyCode() == KeyEvent.VK_RIGHT)
 		{
 			move++;
